@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"> </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js">
+    </script>
+
+    <title> Login Dashboard </title>
+    <style>
+        mark {
+            background-color: yellow;
+            color: black;
+        }
+
+        table, th, td {
+            border: 1px solid white;
+            border-collapse: collapse;
+        }
+        th, td {
+            background-color: #d4eeee;
+        }
+    </style>
+
+</head>
+<body style="background-color:rgb(255, 255, 255);">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+        <a class="navbar-brand" href="#">  UNITEN RUNNING CLUB SYSTEM</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a class="nav-link btn btn-primary btn-lg active"  aria-pressed="true" href="{{url_for('commdashboard')}}" id="commitee" role="button" >Commitee Space<span class="sr-only"></span></a>
+            <p> || </p>
+            <a href="{{url_for('memberupdate',id=current_user.id)}}" aria-pressed="true"  role="button" class="nav-link btn btn-info btn-lg active">Update Biodata</a>
+        </div>
+        <a class="nav-link btn btn-danger btn-lg active float-right"  aria-pressed="true" href="{{url_for('logout')}}" id="logout" role="button">Logout<span class="sr-only"></span></a>
+        
+    </nav>
+
+</br>
+    <div>
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    {% endfor %}
+    </div></br>
+    
+    <div class="row">
+        <div class="col md-15">
+        
+                <h2><mark>CHECK-IN EVENTS & ACTIVITIES</mark></h2>
+                
+                <table class="table text-light style="style="background-color:#373737"></br>
+                    </br>
+                    <tr>
+                        <th> ID</th>
+                        <th> Title</th>
+                        <th> Date</th>
+                        <th> Time</th>
+                        <th> Description</th>
+                        <th> Location</th>
+                        <th> Status</th>
+                        <th> Action</th>
+                    </tr>
+                    
+                    {% for Events in posts %}
+                    <tr>
+                        <td>{{Events.id}}</td>
+                        <td>{{Events.title}}</td>
+                        <td>{{Events.date}}</td>
+                        <td>{{Events.time}}</p</td> 
+                        <td>{{Events.description}}</td>
+                        <td>{{Events.location}}</td>
+                        <td>{{Events.status}}</td>
+
+                        <td>
+                            <a href="{{url_for('mark_attendance')}}" class="btn btn-warning btn-xs" id='mark' data-toggle="modal" data-target="#modalrecord">Mark Attendance</a>
+                        </td>
+                    </tr>
+                    
+                    <form class="form-signin center" method="POST" action="{{url_for('mark_attendance', form=form)}}">
+                    <div id="modalrecord" tabindex="-1" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                            <h4 class="modal-title">Confirm your Attendance | {{Events.title}}</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                    
+                                    <label>Passcode to validate your attendance: </label>
+                                    {{form.passcode(class="form-control")}}</br></br>
+                                    {{form.submit3(class="btn btn-success")}}
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                        {% endfor %}
+                </table>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+    <script src="/static/js/button.js"></script></br></br>
+    
+</body>
+
+</html>
+
+
+
+

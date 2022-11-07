@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <title> Commitee Space </title>
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light" >
+        <h1 class="display-4"> Create  ||  Edit  ||  Delete  Events/Activities </h1>
+    </nav>
+
+        <div class="row">
+            <div class="col md-15">
+            </br><a class="btn btn-danger btn-lg active" aria-pressed="true" href="{{url_for('logout')}}" id="logout" role="button" >Click here to Logout!</a>
+            <a class="btn btn-info btn-lg active" aria-pressed="true" href="{{url_for('dashboard')}}" id="back to login" role="button" >Back to Member Dashboard!</a>
+            <a class="btn btn-warning btn-lg active" aria-pressed="true" href="{{url_for('adminspace')}}" id="adminspace" role="button">Admin Space</a>
+</br></br>
+                <div class="jumbotron p-5"> 
+                    <h3></b>Manage Events/Activities</b><button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#mymodal">Add Events/Activities</button></h3>
+                    
+                    <table class="table table-hover table-dark"></br>
+                        {% for message in get_flashed_messages() %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}</br>
+                        <tr>
+                            <th> ID</th>
+                            <th> Title</th>
+                            <th> Date</th>
+                            <th> Time</th>
+                            <th> Description</th>
+                            <th> Location</th>
+                            <th> Status</th>
+                            <th> Passcode</th>
+                            <th> Action</th>
+                            
+                        </tr>
+                        {% for Events in posts %}
+                        <tr>
+                            <td>{{Events.id}}</td>
+                            <td>{{Events.title}}</td>
+                            <td>{{Events.date}}</td>
+                            <td>{{Events.time}}</p</td> 
+                            <td>{{Events.description}}</td>
+                            <td>{{Events.location}}</td>
+                            <td>{{Events.status}}</td>
+                            <td>{{Events.passcode}}</td>
+
+                            <td>
+                            <a href="/update/{{Events.id}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{Events.id}}">Edit</a>
+                            <a href="/delete/{{Events.id}}" class="btn btn-danger btn-xs" onclick="return confirm('Proceed to delete?')">Delete</a>
+                            </td>
+                        </tr>
+
+                        <div id="modaledit{{Events.id}}" tabindex="-1" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                <h4 class="modal-title">Edit Events/Activities</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body">
+                                <form class="form-signin center" method="POST" action="{{url_for('update',id=Events.id, post=post)}}" >
+                                        <label>Title : </label>
+                                        {{form.hidden_tag()}}
+                                        <input type="text" name="title" value="{{Events.title}}" class="form-control">
+        
+                                        <label> Date : </label>
+                                        <input type="text" name="date" value="{{Events.date}}" class="form-control"></br>
+                                    
+                                        <label>Time : </label>
+                                        <input type="text" name="time" value="{{Events.time}}" class="form-control"></br>
+        
+                                        <label>Description : </label>
+                                        <input type="text" name="description" value="{{Events.description}}" class="form-control"></br>
+        
+                                        <label>Location : </label>
+                                        <input type="text" name="location" value="{{Events.location}}" class="form-control"></br>
+        
+                                        <label>Status : </label>
+                                        <input type="text" name="status" value="{{Events.status}}" class="form-control"></br>
+
+                                        <label>Passcode : </label>
+                                        <input type="text" name="passcode" value="{{Events.passcode}}" class="form-control"></br>
+        
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        {{form.submit2(class="btn btn-success")}}
+                                    </form>
+                                </div>
+
+                        {%  endfor %}
+                        
+                    </table>
+                        <div id="mymodal" tabindex="-1" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                            <h4 class="modal-title">Add Events/Activities</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form-signin center" method="POST" action="{{url_for('insert')}}">
+                                    <label>Title : </label>
+                                    {{form.hidden_tag()}}
+                                    {{form.title(class="form-control")}}</br>
+    
+                                    <label>Date : </label>
+                                    {{form.date(class="form-control")}}</br>
+                                
+                                    <label>Time : </label>
+                                    {{form.time(class="form-control")}}</br>
+    
+                                    <label>Description : </label>
+                                    {{form.description(class="form-control")}}</br>
+    
+                                    <label>Location : </label>
+                                    {{form.location(class="form-control")}}</br>
+
+                                    <label>Status : </label>
+                                    {{form.status(class="form-control")}}</br>
+
+                                    <label> Commitee Passcode : </label>
+                                    {{form.passcode(class="form-control")}}</br>
+    
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    {{form.submit(class="btn btn-success")}}
+                                </form>
+                            </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script></br></br>
+    
+</body>
+</html>
+
+

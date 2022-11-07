@@ -1,0 +1,45 @@
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <link href="/static/css/signin2.css" rel="stylesheet">
+
+    <title>RESET PASSWORD</title>
+
+    </head>
+    <body class="text-left">
+    <form class="form-signin center" method="POST" action="">
+        {% for message in get_flashed_messages() %}
+			<div class="alert alert-info alert-dismissible fade show" role="alert">
+				<strong>{{message}}</strong>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+			{% endfor %}
+        <h2 class="h3 mb-3 font-weight-normal"><mark><strong>RESET PASSWORD PAGE</strong></mark></h2></br>
+        <label for="inputID" class="sr-only"><b>PLEASE ENTER YOUR EMAIL ADDRESS: </b></label></br>
+        {{form.hidden_tag()}}   
+        {{form.email}}</br></br>
+        <label for="inputID" class="sr-only">Anti-Phising-Code: </label></br>  
+        {{form.antiphising}}</br></br>
+        {{form.submit}}</br>
+        </div>
+        <div class="ghost">
+            </br></br>
+			<a class="btn btn-warning" type="button" href="{{url_for('memberpage')}}">Back to Login</a>
+            </br>
+            
+            </div>
+        </div>
+        
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+    </body>
+</html>

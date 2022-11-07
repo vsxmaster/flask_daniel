@@ -1,0 +1,13 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+
+<h1> ADMIN CONTROL PANEL</h1>
+<p1><strong>*Only Admin/Commitee is allowed to access the functionalities</strong></p1>
+</br></br></br></br>
+
+<a type="button" href="{{url_for('dashboard')}}" id="adminmemberdashboard">To Member Dashboard</a></br></br></br>
+<a type="button" href="{{url_for('commdashboard')}}" id="admincommiteememberdashboard">To Commitee Dashboard</></br></br>
+</br><a type="button" href="{{url_for('adminlogout')}}" id="adminlogout">Click here to Logout!</br></br>
+{% endblock body %}
+
