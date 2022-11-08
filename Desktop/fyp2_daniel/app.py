@@ -6,7 +6,6 @@ from flask_bcrypt import Bcrypt, generate_password_hash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, current_user, login_required, login_user, LoginManager, logout_user, login_manager,AnonymousUserMixin
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
 from flask_wtf import FlaskForm
 from sqlalchemy.sql import func
 from wtforms import BooleanField, IntegerField, PasswordField, StringField, SubmitField, TextAreaField
@@ -31,13 +30,12 @@ server.starttls()
 server.login(email, pwd)
 s = URLSafeTimedSerializer('1EMuskYdgB3BtwxpEP46txN5EAN8KnA7dEAWE')
 
-db = SQLAlchemy(app)
-conn = sqlite3.connect ('database.db')
+
 #app.config['SQLALCHEMY_DATABASE_URI'] ='sqlite:///database.db'
 app.config['SQLALCHEMY_DATABASE_URI'] ='postgres://koxfcfgztqnqxg:aeea485f0d117151af96ddebe96d64401c2a4dd0e279a2862491378250eeba82@ec2-18-215-41-121.compute-1.amazonaws.com:5432/d60qea7qhsgaco'
 app.config['SECRET_KEY'] = '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa'
 app.config['REMEMBER_COOKIE_DURATION'] = timedelta(hours=3)
-migrate = Migrate(app, db)
+db = SQLAlchemy(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
