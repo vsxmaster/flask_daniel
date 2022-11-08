@@ -472,6 +472,9 @@ def userChangePassword(token):
             
     return render_template('change_password.html',title="Change Password", form=form)
 
+with app.app_context():     
+    db.create_all()
+    
 if __name__ == '__main__':
     app.run(debug=False,host='0.0.0.0')
 
