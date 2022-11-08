@@ -31,7 +31,7 @@ server.login(email, pwd)
 s = URLSafeTimedSerializer('1EMuskYdgB3BtwxpEP46txN5EAN8KnA7dEAWE')
 
 db = SQLAlchemy(app)
-app.config['SQLALCHEMY_DATABASE_URI'] ='postgres://koxfcfgztqnqxg:aeea485f0d117151af96ddebe96d64401c2a4dd0e279a2862491378250eeba82@ec2-18-215-41-121.compute-1.amazonaws.com:5432/d60qea7qhsgaco'
+app.config['SQLALCHEMY_DATABASE_URI'] ='postgresql://koxfcfgztqnqxg:aeea485f0d117151af96ddebe96d64401c2a4dd0e279a2862491378250eeba82@ec2-18-215-41-121.compute-1.amazonaws.com:5432/d60qea7qhsgaco'
 app.config['SECRET_KEY'] = '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa'
 app.config['REMEMBER_COOKIE_DURATION'] = timedelta(hours=3)
 
